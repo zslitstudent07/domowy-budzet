@@ -1,0 +1,100 @@
+
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinaSee — Rejestr wydatków</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+</head>
+<body class="bg-light">
+<main class="container py-5">
+  <header class="mb-4">
+    <h1 class="fw-bold">FinaSee</h1>
+    <p class="text-secondary">Zarządzanie finansami domowymi</p>
+  </header>
+
+  {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+  {% endfor %}
+
+  <section class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h5">Dodaj wydatek</h2>
+      <form method="post" class="row g-3">
+        <div class="col-md-4">
+          <label for="amount" class="form-label">Kwota (PLN)</label>
+          <input id="amount" name="amount" type="number"
+                 class="form-control" min="0.01" max="99999999.99"
+                 step="0.01" required>
+        </div>
+        <div class="col-md-4">
+          <label for="expense_date" class="form-label">Data</label>
+          <input id="expense_date" name="expense_date" type="date"
+                 class="form-control" max="{{ today }}"
+                 value="{{ today }}" required>
+        </div>
+        <div class="col-md-4">
+          <label for="category" class="form-label">Kategoria</label>
+          <select id="category" name="category" class="form-select" required>
+            <option value="">Wybierz kategorię</option>
+            <option>Jedzenie</option>
+            <option>Transport</option>
+            <option>Mieszkanie</option>
+            <option>Zdrowie</option>
+            <option>Rozrywka</option>
+            <option>Rachunki</option>
+            <option>Inne</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Zapisz wydatek</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="text-secondary">Suma wszystkich wydatków</div>
+      <div class="display-6 fw-bold">
+        {{ "%.2f"|format(total) }} PLN
+      </div>
+    </div>
+  </section>
+
+  <section class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="h5 mb-3">Historia wydatków</h2>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Kategoria</th>
+              <th class="text-end">Kwota</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for expense in expenses %}
+            <tr>
+              <td>{{ expense.expense_date }}</td>
+              <td>{{ expense.category }}</td>
+              <td class="text-end">{{ "%.2f"|format(expense.amount) }} PLN</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="3" class="text-center text-secondary">
+                Brak zapisanych wydatków.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
