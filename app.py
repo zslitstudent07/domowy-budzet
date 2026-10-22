@@ -8,7 +8,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from mysql.connector import Error
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-only-change-me")
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "secretkey")
 
 DB_CONFIG = {
     "host": os.getenv("DB_HOST", "db"),
