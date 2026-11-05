@@ -1,5 +1,5 @@
 
-name: FinaSee CI/CD
+name: DomowyBudżet CI/CD
 
 on:
   push:
