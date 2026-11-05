@@ -40,4 +40,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Budowanie obrazu
-        run: docker build -t finasee:ci .
+        run: docker build -t domowy-budzet:ci .
