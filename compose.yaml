@@ -1,4 +1,5 @@
 
+
 services:
   web:
     build: .
@@ -41,8 +42,9 @@ services:
       - domowy-budzet-network
 
 networks:
-  finasee-network:
+  domowy-budzet-network:
     driver: bridge
 
 volumes:
   domowy_budzet_data:
+
